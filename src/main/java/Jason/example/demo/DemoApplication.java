@@ -48,17 +48,24 @@ public class DemoApplication {
 		while(!questions.isEmpty()){
 			Random rand = new Random();
 			int rand1 = rand.nextInt(questions.size());
-			System.out.println(questions.get(rand1));
-			String userInput = inputReader.nextLine();
 
-			if(userInput.equals(answers.get(rand1)) && tries > 0){
-				score += tries;
-				questions.remove(rand1);
-				answers.remove(rand1);
-				System.out.println("Your score is " + score);
-			} else{
-				System.out.println("Wrong answer");
-				tries--;
+			while (tries > 0) {
+				System.out.println(questions.get(rand1));
+				String userInput = inputReader.nextLine();
+				if(userInput.equals(answers.get(rand1))){
+					score += tries;
+					questions.remove(rand1);
+					answers.remove(rand1);
+					System.out.println("Your score is " + score);
+					break;
+				} else{
+					System.out.println("Wrong answer");
+					tries--;
+					if (tries == 0){
+						System.out.println("Sorry you used up 3 tries, game over!");
+						System.exit(0);
+					}
+				}
 			}
 		}
 		if (score == 9){
